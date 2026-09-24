@@ -1,0 +1,13 @@
+{
+    "name": "hypervirtue/orbit-database-engine",
+    "description": "Decoupled database abstraction and migration builder engine.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "DB\\": "DB/"
+        }
+    },
+    "require": {
+        "php": ">=8.0"
+    }
+}
