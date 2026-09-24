@@ -1,18 +1,17 @@
-# orbit-database-engine
-The decoupled, high-performance database abstraction and fluid migration engine utilized by the proprietary ORBIT Control Plane.
 # ORBIT Database & Migration Engine
 
-This repository contains the decoupled, open-core database abstraction layer, custom Object-Relational Mapper (ORM), and fluid migration engine utilized by the proprietary **ORBIT Control Plane** (managed by Hypervirtue Co.).
+The decoupled, high-performance database abstraction and fluid migration engine utilized by the proprietary **ORBIT Control Plane** (managed by Hypervirtue Co.).
 
-## 🚀 Architectural Architecture Overview
+## 🚀 System Architecture Overview
 
 This component was engineered from scratch in native PHP to provide low-overhead database management across polyglot cloud environments without relying on third-party frameworks. 
 
 ### Key Subsystems:
-* **Database Drivers (`DB\Drivers`):** Implements a strict `DBDriverInterface` abstracting PDO operations safely for MySQL, PostgreSQL, and Oracle, featuring integrated transaction isolation.
-* **SQL Grammar (`DB\ORM\Grammar`):** Handles specific vendor syntax, token wrapping, and dialect switching automatically.
-* **Custom ORM Query Builder (`DB\ORM`):** A fluent query-chaining interface that enables secure, parameterized SQL construction.
-* **Migration Builder (`DB\Migrations`):** A completely engine-agnostic blueprint builder supporting safe table manipulation (`safeAddColumn`, `safeDropColumn`) and automated schema introspection.
+* **Polyglot Database Drivers (`db\drivers`):** Implements a strict, extensible interface mapping both Relational engines (PostgreSQL, MySQL, Oracle, MSSQL, SQLite) and NoSQL/Cloud backends (DynamoDB, MongoDB, CouchDB, Supabase, Firebase, Planetscale, Redis) under a unified data access layer.
+* **Schema Orchestration & Topological Sorter (`db\schema\orchestrator`):** Features a custom Dependency Graph and a Topological Sorter algorithm that automatically calculates database schema execution order based on foreign-key dependencies.
+* **Schema Planner & Transactional Compiler (`db\schema\compiler`):** Compiles schema blueprints safely and manages isolation using a custom SchemaTransaction wrapper to prevent partial or corrupted database rollouts.
+* **Custom ORM Query Builder & Dialect Grammars (`db\orm`):** A fluent query-chaining interface backed by vendor-specific Grammar modules to automatically handle token quoting, subqueries, and syntax compilation across varying SQL dialects.
+* **Migration Builder (`db\migrations`):** A completely engine-agnostic blueprint builder supporting safe table manipulation (`safeAddColumn`, `safeDropColumn`) and automated schema introspection.
 
 ## 🛠️ Framework Agnostic Integration
 
